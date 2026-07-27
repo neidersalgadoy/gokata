@@ -1,0 +1,361 @@
+# SKILLS.yaml — Catálogo inmutable de skills
+# NO editar manualmente. Solo por PR/consenso.
+version: 1
+
+skills:
+  # ─── Concurrency ──────────────────────────────────────────────
+  worker_pool:
+    cluster: concurrency
+    description: "bounded goroutine pool with job queue"
+    max_points: 10
+    prerequisites: []
+
+  errgroup:
+    cluster: concurrency
+    description: "errgroup + semaphore.Weighted for bounded parallelism with cancelation"
+    max_points: 10
+    prerequisites: [worker_pool]
+
+  context:
+    cluster: concurrency
+    description: "context cancellation, deadlines, propagation, request-scoped values"
+    max_points: 10
+    prerequisites: []
+
+  singleflight:
+    cluster: concurrency
+    description: "singleflight.Group for cache stampede prevention"
+    max_points: 10
+    prerequisites: [errgroup, context]
+
+  fan_out_fan_in:
+    cluster: concurrency
+    description: "multiple goroutines processing from one channel, merging results"
+    max_points: 10
+    prerequisites: [errgroup]
+
+  pipeline:
+    cluster: concurrency
+    description: "stage-based processing with channels (producer → stage → stage → consumer)"
+    max_points: 10
+    prerequisites: [errgroup]
+
+  circuit_breaker:
+    cluster: concurrency
+    description: "circuit breaker pattern for external service calls"
+    max_points: 10
+    prerequisites: [errgroup, context]
+
+  rate_limiter:
+    cluster: concurrency
+    description: "token bucket, sliding window, distributed rate limiting"
+    max_points: 10
+    prerequisites: [errgroup]
+
+  pub_sub:
+    cluster: concurrency
+    description: "publish-subscribe pattern with channels"
+    max_points: 10
+    prerequisites: [pipeline]
+
+  sync_primitives:
+    cluster: concurrency
+    description: "WaitGroup, Mutex, RWMutex, Once, Pool, Cond"
+    max_points: 10
+    prerequisites: []
+
+  sync_map:
+    cluster: concurrency
+    description: "sync.Map for lock-free concurrent map access"
+    max_points: 10
+    prerequisites: [sync_primitives]
+
+  atomic:
+    cluster: concurrency
+    description: "atomic CAS, Load/Store, Add, false sharing, alignment"
+    max_points: 10
+    prerequisites: [sync_primitives]
+
+  # ─── Runtime ──────────────────────────────────────────────────
+  gmp_scheduler:
+    cluster: runtime
+    description: "G/M/P model, work stealing, sysmon, preemption"
+    max_points: 10
+    prerequisites: []
+
+  goroutine_lifecycle:
+    cluster: runtime
+    description: "goroutine states, stack growth, blocking vs waiting"
+    max_points: 10
+    prerequisites: [gmp_scheduler]
+
+  network_poller:
+    cluster: runtime
+    description: "netpoller, non-blocking IO, epoll/kqueue"
+    max_points: 10
+    prerequisites: [gmp_scheduler]
+
+  gc:
+    cluster: runtime
+    description: "concurrent mark-sweep, STW, write barrier, GC pacing, GOGC, GOMEMLIMIT"
+    max_points: 10
+    prerequisites: []
+
+  escape_analysis:
+    cluster: runtime
+    description: "stack vs heap allocation, escape analysis, inlining"
+    max_points: 10
+    prerequisites: [gc]
+
+  memory_model:
+    cluster: runtime
+    description: "happens-before, DRF-SC, synchronization ordering, data race definition"
+    max_points: 10
+    prerequisites: [atomic]
+
+  # ─── Architecture ─────────────────────────────────────────────
+  clean_architecture:
+    cluster: architecture
+    description: "ports & adapters / hexagonal, dependency rule, layer separation"
+    max_points: 10
+    prerequisites: []
+
+  ddd:
+    cluster: architecture
+    description: "entities, value objects, aggregates, repositories, domain events, ubiquitous language"
+    max_points: 10
+    prerequisites: [clean_architecture]
+
+  cqrs:
+    cluster: architecture
+    description: "command-query separation, write model vs read model"
+    max_points: 10
+    prerequisites: [ddd]
+
+  event_sourcing:
+    cluster: architecture
+    description: "event store, aggregate replay, snapshots, projector"
+    max_points: 10
+    prerequisites: [cqrs]
+
+  vertical_slice:
+    cluster: architecture
+    description: "feature folders, use-case-per-file, minimize cross-slice coupling"
+    max_points: 10
+    prerequisites: [clean_architecture]
+
+  dependency_injection:
+    cluster: architecture
+    description: "constructor injection, composition root, wire / manual DI"
+    max_points: 10
+    prerequisites: [clean_architecture]
+
+  repository_pattern:
+    cluster: architecture
+    description: "interface-based data access, swappable backends (memory → postgres)"
+    max_points: 10
+    prerequisites: [clean_architecture]
+
+  module_pattern:
+    cluster: architecture
+    description: "self-wiring domain modules, shared contract registry"
+    max_points: 10
+    prerequisites: [dependency_injection]
+
+  # ─── Distributed Systems ──────────────────────────────────────
+  saga:
+    cluster: distributed_systems
+    description: "orchestration vs choreography, compensation, rollback"
+    max_points: 10
+    prerequisites: [event_sourcing]
+
+  transactional_outbox:
+    cluster: distributed_systems
+    description: "outbox table, relay publisher, atomic DB + event publication"
+    max_points: 10
+    prerequisites: [saga]
+
+  inbox_pattern:
+    cluster: distributed_systems
+    description: "idempotent consumers, dedup table, at-least-once safety"
+    max_points: 10
+    prerequisites: [transactional_outbox]
+
+  dead_letter_queue:
+    cluster: distributed_systems
+    description: "DLQ, retry with backoff, poison message handling"
+    max_points: 10
+    prerequisites: [inbox_pattern]
+
+  raft:
+    cluster: distributed_systems
+    description: "leader election, log replication, term, quorum, safety"
+    max_points: 10
+    prerequisites: [gmp_scheduler]
+
+  distributed_locking:
+    cluster: distributed_systems
+    description: "Redis locks, etcd, lease, fencing tokens"
+    max_points: 10
+    prerequisites: [context]
+
+  cap_pacelc:
+    cluster: distributed_systems
+    description: "consistency, availability, partition tolerance, latency vs consistency tradeoffs"
+    max_points: 10
+    prerequisites: []
+
+  mvcc:
+    cluster: distributed_systems
+    description: "MVCC, snapshot isolation, serializable, write skew"
+    max_points: 10
+    prerequisites: []
+
+  # ─── Production ───────────────────────────────────────────────
+  graceful_shutdown:
+    cluster: production
+    description: "SIGTERM handling, drain, context cancellation, wait for in-flight work"
+    max_points: 10
+    prerequisites: [context]
+
+  health_checks:
+    cluster: production
+    description: "readiness, liveness probes, gRPC health protocol"
+    max_points: 10
+    prerequisites: [graceful_shutdown]
+
+  structured_logging:
+    cluster: production
+    description: "slog, structured contexts, log levels, sampling"
+    max_points: 10
+    prerequisites: []
+
+  config_management:
+    cluster: production
+    description: "env vars, Viper, config structs, validation, secrets"
+    max_points: 10
+    prerequisites: []
+
+  observability:
+    cluster: production
+    description: "distributed tracing, metrics, OpenTelemetry, correlation IDs"
+    max_points: 10
+    prerequisites: [structured_logging]
+
+  # ─── Testing ──────────────────────────────────────────────────
+  table_driven_tests:
+    cluster: testing
+    description: "subtests, naming conventions, table-driven test patterns"
+    max_points: 10
+    prerequisites: []
+
+  benchmark:
+    cluster: testing
+    description: "benchmark functions, benchstat, allocation profiling"
+    max_points: 10
+    prerequisites: []
+
+  race_detector:
+    cluster: testing
+    description: "go run -race, data race diagnosis, fixes"
+    max_points: 10
+    prerequisites: [table_driven_tests]
+
+  fuzzing:
+    cluster: testing
+    description: "go test -fuzz, corpus, edge case discovery"
+    max_points: 10
+    prerequisites: [table_driven_tests]
+
+  testcontainers:
+    cluster: testing
+    description: "testcontainers-go for integration tests with real dependencies"
+    max_points: 10
+    prerequisites: [table_driven_tests]
+
+  pprof:
+    cluster: testing
+    description: "CPU, heap, goroutine, mutex, block profiling with go tool pprof"
+    max_points: 10
+    prerequisites: [benchmark]
+
+  trace:
+    cluster: testing
+    description: "runtime/trace, go tool trace, scheduler & GC visualization"
+    max_points: 10
+    prerequisites: [pprof]
+
+  # ─── Infrastructure ───────────────────────────────────────────
+  docker:
+    cluster: infrastructure
+    description: "multi-stage builds, Compose, networking, volumes"
+    max_points: 10
+    prerequisites: [graceful_shutdown]
+
+  kubernetes:
+    cluster: infrastructure
+    description: "deployments, services, probes, HPA, ConfigMap, Helm"
+    max_points: 10
+    prerequisites: [docker, health_checks]
+
+  terraform:
+    cluster: infrastructure
+    description: "IaC, modules, state, providers, GCP/AWS"
+    max_points: 10
+    prerequisites: [kubernetes]
+
+  ci_cd:
+    cluster: infrastructure
+    description: "GitHub Actions, pipeline stages, caching, matrix builds"
+    max_points: 10
+    prerequisites: [docker]
+
+  # ─── Communication ────────────────────────────────────────────
+  grpc:
+    cluster: communication
+    description: "unary, server/client streaming, interceptors, deadlines, proto"
+    max_points: 10
+    prerequisites: [context]
+
+  protocol_buffers:
+    cluster: communication
+    description: "proto3, field rules, imports, package organization, buf build"
+    max_points: 10
+    prerequisites: []
+
+  kafka:
+    cluster: communication
+    description: "producer, consumer, consumer groups, partitions, exactly-once semantics"
+    max_points: 10
+    prerequisites: [context]
+
+  nats:
+    cluster: communication
+    description: "NATS core, JetStream, durable consumers, exactly-once"
+    max_points: 10
+    prerequisites: [context]
+
+  event_driven:
+    cluster: communication
+    description: "event-driven architecture, event contracts, schema registry"
+    max_points: 10
+    prerequisites: [kafka, nats]
+
+  # ─── Data Structures ──────────────────────────────────────────
+  heap:
+    cluster: data_structures
+    description: "container/heap, min/max heap, top-N, priority queue"
+    max_points: 10
+    prerequisites: []
+
+  ring_buffer:
+    cluster: data_structures
+    description: "circular buffer, lock-free ring, SPSC/MPMC"
+    max_points: 10
+    prerequisites: [atomic]
+
+  bloom_filter:
+    cluster: data_structures
+    description: "probabilistic membership, false positives, hash functions"
+    max_points: 10
+    prerequisites: []

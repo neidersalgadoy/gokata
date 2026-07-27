@@ -1,0 +1,208 @@
+# CHALLENGE_REGISTRY.yaml — Catálogo de challenges
+# status: pending | active | completed
+challenges:
+  01-workerpool:
+    title: "Worker Pool with Backpressure"
+    talla: S
+    horas: 3
+    cluster: concurrency
+    skills:
+      errgroup: 3
+      worker_pool: 3
+      context: 2
+      heap: 2
+      benchmark: 1
+    prereqs: []
+    status: pending
+
+  02-singleflight-cache:
+    title: "Cache Stampede Prevention with Singleflight"
+    talla: S
+    horas: 4
+    cluster: concurrency
+    skills:
+      singleflight: 4
+      escape_analysis: 2
+      sync_map: 2
+      benchmark: 1
+      race_detector: 1
+    prereqs: [errgroup, context]
+    status: pending
+
+  03-grpc-gateway:
+    title: "gRPC API Gateway with Middleware"
+    talla: M
+    horas: 8
+    cluster: communication
+    skills:
+      grpc: 3
+      protocol_buffers: 2
+      graceful_shutdown: 2
+      context: 1
+      structured_logging: 1
+    prereqs: [context]
+    status: pending
+
+  04-ddd-hexagonal:
+    title: "DDD + Hexagonal Architecture Service"
+    talla: M
+    horas: 8
+    cluster: architecture
+    skills:
+      ddd: 3
+      clean_architecture: 3
+      repository_pattern: 2
+      dependency_injection: 2
+      table_driven_tests: 1
+      testcontainers: 1
+    prereqs: [clean_architecture]
+    status: pending
+
+  05-event-sourcing-cqrs:
+    title: "Event Sourcing + CQRS Order Service"
+    talla: M
+    horas: 10
+    cluster: architecture
+    skills:
+      event_sourcing: 4
+      cqrs: 3
+      kafka: 2
+      transactional_outbox: 2
+      inbox_pattern: 1
+    prereqs: [ddd, grpc]
+    status: pending
+
+  06-saga-choreography:
+    title: "Saga Choreography with Compensation"
+    talla: M
+    horas: 10
+    cluster: distributed_systems
+    skills:
+      saga: 4
+      transactional_outbox: 2
+      inbox_pattern: 2
+      dead_letter_queue: 2
+      kafka: 1
+    prereqs: [event_sourcing]
+    status: pending
+
+  07-full-system-deploy:
+    title: "Full System — DDD + ES + gRPC on K8s"
+    talla: L
+    horas: 20
+    cluster: infrastructure
+    skills:
+      kubernetes: 4
+      docker: 3
+      ci_cd: 2
+      health_checks: 2
+      observability: 2
+      event_driven: 2
+      nats: 1
+    prereqs: [saga, grpc, docker]
+    status: pending
+
+  08-rate-limiter-circuit-breaker:
+    title: "Rate Limiter + Circuit Breaker Proxy"
+    talla: S
+    horas: 5
+    cluster: concurrency
+    skills:
+      rate_limiter: 4
+      circuit_breaker: 4
+      context: 1
+      pprof: 1
+    prereqs: [errgroup, context]
+    status: pending
+
+  09-gmp-scheduler-lab:
+    title: "G/M/P Scheduler Deep Dive"
+    talla: S
+    horas: 4
+    cluster: runtime
+    skills:
+      gmp_scheduler: 4
+      goroutine_lifecycle: 3
+      network_poller: 1
+      pprof: 1
+      trace: 1
+    prereqs: [context]
+    status: pending
+
+  10-gc-memory-lab:
+    title: "GC & Memory Model Lab"
+    talla: S
+    horas: 4
+    cluster: runtime
+    skills:
+      gc: 4
+      escape_analysis: 3
+      memory_model: 2
+      pprof: 1
+    prereqs: [gmp_scheduler]
+    status: pending
+
+  11-fan-out-fan-in:
+    title: "Fan-Out/Fan-In Data Pipeline"
+    talla: S
+    horas: 4
+    cluster: concurrency
+    skills:
+      fan_out_fan_in: 4
+      pipeline: 3
+      context: 1
+      race_detector: 1
+    prereqs: [errgroup]
+    status: pending
+
+  12-fuzzing-benchmark:
+    title: "Fuzzing & Benchmarking Mastery"
+    talla: S
+    horas: 3
+    cluster: testing
+    skills:
+      fuzzing: 4
+      benchmark: 3
+      race_detector: 1
+      pprof: 1
+    prereqs: [table_driven_tests]
+    status: pending
+
+  13-lock-free-patterns:
+    title: "Lock-Free Patterns with atomic"
+    talla: M
+    horas: 6
+    cluster: concurrency
+    skills:
+      atomic: 4
+      ring_buffer: 3
+      sync_map: 2
+      memory_model: 1
+    prereqs: [sync_primitives]
+    status: pending
+
+  14-raft-kv-store:
+    title: "Raft KV Store (Leader Election + Log Replication)"
+    talla: L
+    horas: 25
+    cluster: distributed_systems
+    skills:
+      raft: 5
+      distributed_locking: 2
+      cap_pacelc: 2
+      graceful_shutdown: 1
+    prereqs: [gmp_scheduler, context]
+    status: pending
+
+  15-ci-cd-terraform:
+    title: "CI/CD + Terraform Deploy Pipeline"
+    talla: M
+    horas: 8
+    cluster: infrastructure
+    skills:
+      ci_cd: 4
+      terraform: 4
+      docker: 1
+      kubernetes: 1
+    prereqs: [docker, kubernetes]
+    status: pending

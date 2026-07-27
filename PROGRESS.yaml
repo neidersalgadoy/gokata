@@ -1,0 +1,253 @@
+# PROGRESS.yaml — Overlay de progreso del alumno
+# El AGENT edita: points, last_reviewed, challenges
+# NO editar skills section (viene de SKILLS.yaml)
+progress:
+  # ─── Concurrency ──────────────────────────────────────────────
+  worker_pool:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  errgroup:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  context:
+    points: 3
+    last_reviewed: null
+    challenges: []
+  singleflight:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  fan_out_fan_in:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  pipeline:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  circuit_breaker:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  rate_limiter:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  pub_sub:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  sync_primitives:
+    points: 4
+    last_reviewed: null
+    challenges: []
+  sync_map:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  atomic:
+    points: 0
+    last_reviewed: null
+    challenges: []
+
+  # ─── Runtime ──────────────────────────────────────────────────
+  gmp_scheduler:
+    points: 1
+    last_reviewed: null
+    challenges: []
+  goroutine_lifecycle:
+    points: 1
+    last_reviewed: null
+    challenges: []
+  network_poller:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  gc:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  escape_analysis:
+    points: 1
+    last_reviewed: null
+    challenges: []
+  memory_model:
+    points: 0
+    last_reviewed: null
+    challenges: []
+
+  # ─── Architecture ─────────────────────────────────────────────
+  ddd:
+    points: 5
+    last_reviewed: null
+    challenges: []
+  cqrs:
+    points: 3
+    last_reviewed: null
+    challenges: []
+  event_sourcing:
+    points: 3
+    last_reviewed: null
+    challenges: []
+  clean_architecture:
+    points: 2
+    last_reviewed: null
+    challenges: []
+  vertical_slice:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  dependency_injection:
+    points: 3
+    last_reviewed: null
+    challenges: []
+  repository_pattern:
+    points: 3
+    last_reviewed: null
+    challenges: []
+  module_pattern:
+    points: 0
+    last_reviewed: null
+    challenges: []
+
+  # ─── Distributed Systems ──────────────────────────────────────
+  saga:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  transactional_outbox:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  inbox_pattern:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  dead_letter_queue:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  raft:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  distributed_locking:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  cap_pacelc:
+    points: 1
+    last_reviewed: null
+    challenges: []
+  mvcc:
+    points: 0
+    last_reviewed: null
+    challenges: []
+
+  # ─── Production ───────────────────────────────────────────────
+  graceful_shutdown:
+    points: 2
+    last_reviewed: null
+    challenges: []
+  health_checks:
+    points: 2
+    last_reviewed: null
+    challenges: []
+  structured_logging:
+    points: 3
+    last_reviewed: null
+    challenges: []
+  config_management:
+    points: 3
+    last_reviewed: null
+    challenges: []
+  observability:
+    points: 1
+    last_reviewed: null
+    challenges: []
+
+  # ─── Testing ──────────────────────────────────────────────────
+  table_driven_tests:
+    points: 5
+    last_reviewed: null
+    challenges: []
+  benchmark:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  race_detector:
+    points: 2
+    last_reviewed: null
+    challenges: []
+  fuzzing:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  testcontainers:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  pprof:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  trace:
+    points: 0
+    last_reviewed: null
+    challenges: []
+
+  # ─── Infrastructure ───────────────────────────────────────────
+  docker:
+    points: 3
+    last_reviewed: null
+    challenges: []
+  kubernetes:
+    points: 1
+    last_reviewed: null
+    challenges: []
+  terraform:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  ci_cd:
+    points: 2
+    last_reviewed: null
+    challenges: []
+
+  # ─── Communication ────────────────────────────────────────────
+  grpc:
+    points: 3
+    last_reviewed: null
+    challenges: []
+  protocol_buffers:
+    points: 2
+    last_reviewed: null
+    challenges: []
+  kafka:
+    points: 2
+    last_reviewed: null
+    challenges: []
+  nats:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  event_driven:
+    points: 2
+    last_reviewed: null
+    challenges: []
+
+  # ─── Data Structures ──────────────────────────────────────────
+  heap:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  ring_buffer:
+    points: 0
+    last_reviewed: null
+    challenges: []
+  bloom_filter:
+    points: 0
+    last_reviewed: null
+    challenges: []
