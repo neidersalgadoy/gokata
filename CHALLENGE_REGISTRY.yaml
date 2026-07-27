@@ -26,7 +26,7 @@ challenges:
       sync_map: 2
       benchmark: 1
       race_detector: 1
-    prereqs: [errgroup, context]
+    prereqs: [errgroup, context, gc, sync_primitives]
     status: pending
 
   03-grpc-gateway:

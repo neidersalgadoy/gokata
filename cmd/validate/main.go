@@ -7,63 +7,41 @@ import (
 	"sort"
 	"time"
 
-	"gopkg.in/yaml.v3"
+	"github.com/neidersalgadoy/gokata/internal/types"
 )
-
-type SkillsFile struct {
-	Version int               `yaml:"version"`
-	Skills  map[string]*Skill `yaml:"skills"`
-}
-
-type Skill struct {
-	Cluster       string   `yaml:"cluster"`
-	Description   string   `yaml:"description"`
-	MaxPoints     int      `yaml:"max_points"`
-	Prerequisites []string `yaml:"prerequisites"`
-}
-
-type ProgressFile struct {
-	Progress map[string]*ProgressEntry `yaml:"progress"`
-}
-
-type ProgressEntry struct {
-	Points       int      `yaml:"points"`
-	LastReviewed *string  `yaml:"last_reviewed"`
-	Challenges   []string `yaml:"challenges"`
-}
-
-type RegistryFile struct {
-	Challenges map[string]*ChallengeEntry `yaml:"challenges"`
-}
-
-type ChallengeEntry struct {
-	Title       string         `yaml:"title"`
-	Talla       string         `yaml:"talla"`
-	Horas       int            `yaml:"horas"`
-	Cluster     string         `yaml:"cluster"`
-	Skills      map[string]int `yaml:"skills"`
-	Prereqs     []string       `yaml:"prereqs"`
-	Status      string         `yaml:"status"`
-}
 
 func main() {
 	exit := 0
 
-	repoRoot := findRepoRoot()
+	repoRoot := types.FindRoot()
 	skillsFile := filepath.Join(repoRoot, "SKILLS.yaml")
 	progressFile := filepath.Join(repoRoot, "PROGRESS.yaml")
 	registryFile := filepath.Join(repoRoot, "CHALLENGE_REGISTRY.yaml")
 	kataDir := filepath.Join(repoRoot, "kata")
 
-	skills := loadSkills(skillsFile)
-	progress := loadProgress(progressFile)
-	registry := loadRegistry(registryFile)
+	var sf types.SkillsFile
+	types.MustUnmarshal(skillsFile, &sf)
+	skills := sf.Skills
+
+	progress := types.LoadProgress(progressFile)
+
+	var rf types.RegistryFile
+	if err := func() error {
+		// registry is optional
+		if _, err := os.Stat(registryFile); os.IsNotExist(err) {
+			return err
+		}
+		types.MustUnmarshal(registryFile, &rf)
+		return nil
+	}(); err != nil {
+		rf = types.RegistryFile{}
+	}
 
 	errors := validateProgress(skills, progress, kataDir)
 	warnings := checkProgressPrerequisites(skills, progress)
 
-	if registry != nil {
-		rErrors, rWarns := validateRegistry(skills, kataDir, registry)
+	if len(rf.Challenges) > 0 {
+		rErrors, rWarns := validateRegistry(skills, kataDir, &rf)
 		errors = append(errors, rErrors...)
 		warnings = append(warnings, rWarns...)
 	}
@@ -89,63 +67,7 @@ func main() {
 	os.Exit(exit)
 }
 
-func findRepoRoot() string {
-	dir, _ := os.Getwd()
-	for {
-		if _, err := os.Stat(filepath.Join(dir, "SKILLS.yaml")); err == nil {
-			return dir
-		}
-		parent := filepath.Dir(dir)
-		if parent == dir {
-			fmt.Fprintln(os.Stderr, "fatal: SKILLS.yaml not found in any parent directory")
-			os.Exit(1)
-		}
-		dir = parent
-	}
-}
-
-func loadSkills(path string) map[string]*Skill {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "fatal: reading %s: %v\n", path, err)
-		os.Exit(1)
-	}
-	var sf SkillsFile
-	if err := yaml.Unmarshal(data, &sf); err != nil {
-		fmt.Fprintf(os.Stderr, "fatal: parsing %s: %v\n", path, err)
-		os.Exit(1)
-	}
-	return sf.Skills
-}
-
-func loadProgress(path string) map[string]*ProgressEntry {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "fatal: reading %s: %v\n", path, err)
-		os.Exit(1)
-	}
-	var pf ProgressFile
-	if err := yaml.Unmarshal(data, &pf); err != nil {
-		fmt.Fprintf(os.Stderr, "fatal: parsing %s: %v\n", path, err)
-		os.Exit(1)
-	}
-	return pf.Progress
-}
-
-func loadRegistry(path string) *RegistryFile {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		return nil
-	}
-	var rf RegistryFile
-	if err := yaml.Unmarshal(data, &rf); err != nil {
-		fmt.Fprintf(os.Stderr, "fatal: parsing %s: %v\n", path, err)
-		os.Exit(1)
-	}
-	return &rf
-}
-
-func validateProgress(skills map[string]*Skill, progress map[string]*ProgressEntry, kataDir string) []string {
+func validateProgress(skills map[string]*types.Skill, progress map[string]*types.ProgressEntry, kataDir string) []string {
 	var errors []string
 
 	for name := range progress {
@@ -185,7 +107,7 @@ func validateProgress(skills map[string]*Skill, progress map[string]*ProgressEnt
 	return errors
 }
 
-func checkProgressPrerequisites(skills map[string]*Skill, progress map[string]*ProgressEntry) []string {
+func checkProgressPrerequisites(skills map[string]*types.Skill, progress map[string]*types.ProgressEntry) []string {
 	var warns []string
 	for name, entry := range progress {
 		if entry.Points == 0 {
@@ -209,7 +131,7 @@ func checkProgressPrerequisites(skills map[string]*Skill, progress map[string]*P
 	return warns
 }
 
-func validateRegistry(skills map[string]*Skill, kataDir string, rf *RegistryFile) ([]string, []string) {
+func validateRegistry(skills map[string]*types.Skill, kataDir string, rf *types.RegistryFile) ([]string, []string) {
 	var errors []string
 	var warns []string
 
@@ -252,7 +174,7 @@ func validateRegistry(skills map[string]*Skill, kataDir string, rf *RegistryFile
 	return errors, warns
 }
 
-func allChallengeRefs(progress map[string]*ProgressEntry) []string {
+func allChallengeRefs(progress map[string]*types.ProgressEntry) []string {
 	seen := make(map[string]bool)
 	for _, entry := range progress {
 		for _, ch := range entry.Challenges {

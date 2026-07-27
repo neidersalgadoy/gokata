@@ -12,7 +12,7 @@ progress:
     last_reviewed: null
     challenges: []
   context:
-    points: 3
+    points: 0
     last_reviewed: null
     challenges: []
   singleflight:
@@ -40,7 +40,7 @@ progress:
     last_reviewed: null
     challenges: []
   sync_primitives:
-    points: 4
+    points: 0
     last_reviewed: null
     challenges: []
   sync_map:
@@ -54,11 +54,11 @@ progress:
 
   # ─── Runtime ──────────────────────────────────────────────────
   gmp_scheduler:
-    points: 1
+    points: 0
     last_reviewed: null
     challenges: []
   goroutine_lifecycle:
-    points: 1
+    points: 0
     last_reviewed: null
     challenges: []
   network_poller:
@@ -70,7 +70,7 @@ progress:
     last_reviewed: null
     challenges: []
   escape_analysis:
-    points: 1
+    points: 0
     last_reviewed: null
     challenges: []
   memory_model:
@@ -80,19 +80,19 @@ progress:
 
   # ─── Architecture ─────────────────────────────────────────────
   ddd:
-    points: 5
+    points: 0
     last_reviewed: null
     challenges: []
   cqrs:
-    points: 3
+    points: 0
     last_reviewed: null
     challenges: []
   event_sourcing:
-    points: 3
+    points: 0
     last_reviewed: null
     challenges: []
   clean_architecture:
-    points: 2
+    points: 0
     last_reviewed: null
     challenges: []
   vertical_slice:
@@ -100,11 +100,11 @@ progress:
     last_reviewed: null
     challenges: []
   dependency_injection:
-    points: 3
+    points: 0
     last_reviewed: null
     challenges: []
   repository_pattern:
-    points: 3
+    points: 0
     last_reviewed: null
     challenges: []
   module_pattern:
@@ -138,7 +138,7 @@ progress:
     last_reviewed: null
     challenges: []
   cap_pacelc:
-    points: 1
+    points: 0
     last_reviewed: null
     challenges: []
   mvcc:
@@ -148,29 +148,29 @@ progress:
 
   # ─── Production ───────────────────────────────────────────────
   graceful_shutdown:
-    points: 2
+    points: 0
     last_reviewed: null
     challenges: []
   health_checks:
-    points: 2
+    points: 0
     last_reviewed: null
     challenges: []
   structured_logging:
-    points: 3
+    points: 0
     last_reviewed: null
     challenges: []
   config_management:
-    points: 3
+    points: 0
     last_reviewed: null
     challenges: []
   observability:
-    points: 1
+    points: 0
     last_reviewed: null
     challenges: []
 
   # ─── Testing ──────────────────────────────────────────────────
   table_driven_tests:
-    points: 5
+    points: 0
     last_reviewed: null
     challenges: []
   benchmark:
@@ -178,7 +178,7 @@ progress:
     last_reviewed: null
     challenges: []
   race_detector:
-    points: 2
+    points: 0
     last_reviewed: null
     challenges: []
   fuzzing:
@@ -200,11 +200,11 @@ progress:
 
   # ─── Infrastructure ───────────────────────────────────────────
   docker:
-    points: 3
+    points: 0
     last_reviewed: null
     challenges: []
   kubernetes:
-    points: 1
+    points: 0
     last_reviewed: null
     challenges: []
   terraform:
@@ -212,21 +212,21 @@ progress:
     last_reviewed: null
     challenges: []
   ci_cd:
-    points: 2
+    points: 0
     last_reviewed: null
     challenges: []
 
   # ─── Communication ────────────────────────────────────────────
   grpc:
-    points: 3
+    points: 0
     last_reviewed: null
     challenges: []
   protocol_buffers:
-    points: 2
+    points: 0
     last_reviewed: null
     challenges: []
   kafka:
-    points: 2
+    points: 0
     last_reviewed: null
     challenges: []
   nats:
@@ -234,7 +234,7 @@ progress:
     last_reviewed: null
     challenges: []
   event_driven:
-    points: 2
+    points: 0
     last_reviewed: null
     challenges: []
 

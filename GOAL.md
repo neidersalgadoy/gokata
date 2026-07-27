@@ -40,37 +40,39 @@
 - `kata/N-nombre/hints.md` + `*_test.go` como vehículo
 - `GOAL.md` como plan vivo
 
-## Curriculum propuesto (por validar)
+## Curriculum
 
 ### Fase 1 — Go Internals & Advanced Concurrency (fundación)
-| # | Kata | Tema |
-|---|------|------|
-| 01 | Worker pool | errgroup + semaphore + backpressure + cancelación |
-| 02 | Scheduler deep dive | G/M/P, goroutine lifecycle, network poller, `runtime` pkg |
-| 03 | GC & Memory | GC mark-sweep, escape analysis, stack vs heap, `pprof` |
-| 04 | Lock-free patterns | `atomic`, `sync.Map`, `sync.Pool`, CAS, false sharing |
-| 05 | Benchmark & profile | `benchstat`, `pprof`, `trace`, allocation optimization |
+| # | Challenge | Cluster | Skills clave |
+|---|-----------|---------|-------------|
+| 01 | Worker Pool with Backpressure | concurrency | errgroup, worker_pool, context, heap |
+| 09 | G/M/P Scheduler Deep Dive | runtime | gmp_scheduler, goroutine_lifecycle, pprof |
+| 10 | GC & Memory Model Lab | runtime | gc, escape_analysis, memory_model |
+| 11 | Fan-Out/Fan-In Data Pipeline | concurrency | fan_out_fan_in, pipeline, context |
+| 08 | Rate Limiter + Circuit Breaker Proxy | concurrency | rate_limiter, circuit_breaker, context |
+| 13 | Lock-Free Patterns with atomic | concurrency | atomic, ring_buffer, sync_map, memory_model |
 
-### Fase 2 — Distributed Systems (conectar teoría con práctica real)
-| # | Kata | Tema |
-|---|------|------|
-| 06 | Log replication | Append-only log, WAL, fsync, durability, crash recovery |
-| 07 | Raft distilled | Leader election, term, quorum, split-brain, lease read |
-| 08 | MVCC & Isolation | MVCC, snapshot isolation, serializable, write skew |
-| 09 | Consistent caching | `singleflight`, cache stampede, write-through, write-behind |
-| 10 | Rate limiting | Token bucket, sliding window, distributed rate limiter (Redis) |
+### Fase 2 — Architecture, Communication & Caching
+| # | Challenge | Cluster | Skills clave |
+|---|-----------|---------|-------------|
+| 02 | Cache Stampede Prevention with Singleflight | concurrency | singleflight, escape_analysis, sync_map |
+| 03 | gRPC API Gateway with Middleware | communication | grpc, protocol_buffers, graceful_shutdown |
+| 04 | DDD + Hexagonal Architecture Service | architecture | ddd, clean_architecture, repository_pattern |
+| 05 | Event Sourcing + CQRS Order Service | architecture | event_sourcing, cqrs, kafka |
+| 06 | Saga Choreography with Compensation | distributed_systems | saga, transactional_outbox, inbox_pattern |
+| 12 | Fuzzing & Benchmarking Mastery | testing | fuzzing, benchmark, race_detector |
 
-### Fase 3 — System Design for ezCater (ranking y recommendation)
-| # | Kata | Tema |
-|---|------|------|
-| 11 | Ranking service | Feature store, scoring pipeline, top-N heap, real-time vs batch |
-| 12 | Recommendation system | Collaborative filtering, embedding-based, cold start |
-| 13 | Event-driven SAGA | Orquestación vs coreografía, compensating transactions, Kafka |
-| 14 | Full system mock | Design "restaurant ranking for ezCater" — modelo, escala, trade-offs |
+### Fase 3 — Production, Distributed Systems & Infrastructure
+| # | Challenge | Cluster | Skills clave |
+|---|-----------|---------|-------------|
+| 14 | Raft KV Store (Leader Election + Log Replication) | distributed_systems | raft, distributed_locking, cap_pacelc |
+| 15 | CI/CD + Terraform Deploy Pipeline | infrastructure | ci_cd, terraform, docker, kubernetes |
+| 07 | Full System — DDD + ES + gRPC on K8s | infrastructure | kubernetes, docker, observability, nats |
 
 ## Progreso
-| # | Kata | Estado |
-|---|------|--------|
+| # | Challenge | Estado |
+|---|-----------|--------|
 | 00 | GOAL.md | ✅ definido |
-| 01 | Worker pool | hints + tests (sin implementar) |
-| 02+ | Scheduler deep dive | ⏳ |
+| 01 | workerpool | hints + tests (sin implementar) |
+| 02 | singleflight-cache | hints + tests (sin implementar) |
+| 03-15 | resto | ⏳ pendientes |
